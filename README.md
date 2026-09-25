@@ -1,0 +1,1 @@
+# Espetaria-pelo-lovable

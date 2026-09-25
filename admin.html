@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Painel do Dono — Minha Espetaria</title>
+  <meta name="theme-color" content="#100e0b">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <div class="login-logo">🍢</div>
+      <h2>Painel do Dono</h2>
+      <p>Digite a senha para gerenciar sua espetaria.</p>
+      <div class="field">
+        <label for="loginPass">Senha</label>
+        <input type="password" id="loginPass" placeholder="Sua senha" autocomplete="current-password">
+      </div>
+      <p class="hint">Primeira vez aqui? A senha inicial é <b>admin123</b> — troque depois em “Backup e senha”.</p>
+      <button class="btn btn-primary" id="loginBtn" style="width:100%">Entrar 🔓</button>
+      <a href="index.html" class="back-link">← Voltar para a loja</a>
+    </div>
+  </div>
+
+  <!-- PAINEL -->
+  <div id="panel" class="hidden">
+    <header class="admin-top">
+      <div class="admin-top-inner">
+        <div class="logo">🍢</div>
+        <div class="brand">
+          <h1>Painel do Dono</h1>
+          <span id="panelStoreName">Minha Espetaria</span>
+        </div>
+        <a class="btn btn-ghost btn-sm" href="index.html" target="_blank" rel="noopener">👁️ Ver loja</a>
+        <button class="btn btn-ghost btn-sm" id="logoutBtn">Sair</button>
+      </div>
+      <nav class="tabs" id="tabs">
+        <button data-tab="home" class="on">🏠 Início</button>
+        <button data-tab="store">🏪 Loja</button>
+        <button data-tab="menu">📋 Cardápio</button>
+        <button data-tab="backup">💾 Backup e senha</button>
+      </nav>
+    </header>
+
+    <main class="admin-wrap">
+
+      <!-- ABA: INÍCIO -->
+      <section id="tab-home" class="tab-page">
+        <div id="setupAlert"></div>
+        <div class="cards">
+          <div class="card">
+            <h3>🚦 Status da loja</h3>
+            <p class="big-status" id="homeStatus">—</p>
+            <p class="muted" id="homeHours">—</p>
+            <div class="btn-row">
+              <button class="btn btn-green btn-sm" id="forceOpenBtn">🟢 Abrir agora</button>
+              <button class="btn btn-danger btn-sm" id="forceCloseBtn">🔴 Fechar agora</button>
+              <button class="btn btn-ghost btn-sm" id="forceAutoBtn">⏰ Automático</button>
+            </div>
+            <p class="hint">“Automático” segue os dias e horários cadastrados na aba Loja.</p>
+          </div>
+          <div class="card">
+            <h3>📊 Resumo</h3>
+            <div class="stats" id="homeStats"></div>
+            <div class="btn-row">
+              <button class="btn btn-primary btn-sm" id="goStoreBtn">✏️ Editar dados da loja</button>
+              <button class="btn btn-ghost btn-sm" id="goMenuBtn">➕ Adicionar item</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>🚀 Para começar a vender hoje</h3>
+          <ol class="steps" id="setupSteps"></ol>
+        </div>
+      </section>
+
+      <!-- ABA: LOJA -->
+      <section id="tab-store" class="tab-page hidden">
+        <div class="card">
+          <h3>🏪 Dados da loja</h3>
+          <div class="grid2">
+            <div class="field"><label for="f_name">Nome da espetaria *</label><input id="f_name" placeholder="Ex: Espetaria do Zé"></div>
+            <div class="field"><label for="f_logoEmoji">Emoji da logo</label><input id="f_logoEmoji" maxlength="4" placeholder="🍢"></div>
+          </div>
+          <div class="field"><label for="f_tagline">Frase de apresentação</label><input id="f_tagline" placeholder="Ex: O melhor espetinho do bairro!"></div>
+          <div class="grid2">
+            <div class="field"><label for="f_whatsapp">WhatsApp que recebe os pedidos *</label><input id="f_whatsapp" inputmode="tel" placeholder="Ex: 83999998888 (só números, com DDD)"></div>
+            <div class="field"><label for="f_instagram">Instagram (opcional)</label><input id="f_instagram" placeholder="Ex: @minhaespetaria"></div>
+          </div>
+          <div class="field"><label for="f_address">Endereço</label><input id="f_address" placeholder="Rua, número, bairro"></div>
+          <div class="field"><label for="f_mapsUrl">Link do Google Maps (opcional)</label><input id="f_mapsUrl" placeholder="Cole o link do mapa para o botão 'ver no mapa'"></div>
+          <div class="grid3">
+            <div class="field"><label for="f_deliveryFee">Taxa de entrega (R$)</label><input id="f_deliveryFee" inputmode="decimal" placeholder="5,00"></div>
+            <div class="field"><label for="f_freeDeliveryFrom">Entrega grátis acima de (R$)</label><input id="f_freeDeliveryFrom" inputmode="decimal" placeholder="0 = desligado"></div>
+            <div class="field"><label for="f_deliveryTime">Tempo de entrega</label><input id="f_deliveryTime" placeholder="30–50 min"></div>
+          </div>
+          <div class="grid2">
+            <div class="field"><label for="f_pixKey">Chave Pix (opcional)</label><input id="f_pixKey" placeholder="CPF, telefone ou e-mail"></div>
+            <div class="field"><label for="f_payments">Formas de pagamento (uma por linha)</label><textarea id="f_payments" rows="3"></textarea></div>
+          </div>
+          <div class="grid3">
+            <div class="field"><label for="f_hoursOpen">Abre às</label><input id="f_hoursOpen" type="time" value="18:00"></div>
+            <div class="field"><label for="f_hoursClose">Fecha às</label><input id="f_hoursClose" type="time" value="23:00"></div>
+            <div class="field"><label>Dias abertos</label><div class="days" id="f_days"></div></div>
+          </div>
+          <div class="field">
+            <label>Foto da capa</label>
+            <div class="photo-row">
+              <img id="f_heroPreview" class="photo-preview" src="assets/img/hero.jpg" alt="Capa">
+              <div class="photo-actions">
+                <label class="btn btn-ghost btn-sm">📤 Enviar foto <input type="file" id="f_heroFile" accept="image/*" class="hidden"></label>
+                <button class="btn btn-ghost btn-sm" id="f_heroGallery">🖼️ Escolher da galeria</button>
+                <button class="btn btn-ghost btn-sm" id="f_heroDefault">↩️ Voltar ao padrão</button>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary" id="saveStoreBtn" style="width:100%">💾 Salvar dados da loja</button>
+        </div>
+      </section>
+
+      <!-- ABA: CARDÁPIO -->
+      <section id="tab-menu" class="tab-page hidden">
+        <div class="card">
+          <div class="card-head">
+            <h3>📂 Categorias</h3>
+            <button class="btn btn-primary btn-sm" id="addCatBtn">➕ Nova categoria</button>
+          </div>
+          <div id="catList" class="cat-list"></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h3>🍢 Itens do cardápio</h3>
+            <button class="btn btn-primary btn-sm" id="addItemBtn">➕ Novo item</button>
+          </div>
+          <div class="field"><input id="itemSearch" placeholder="🔍 Buscar item para editar..."></div>
+          <div id="itemList"></div>
+        </div>
+      </section>
+
+      <!-- ABA: BACKUP -->
+      <section id="tab-backup" class="tab-page hidden">
+        <div class="card">
+          <h3>💾 Backup dos dados</h3>
+          <p class="muted">Tudo fica salvo no navegador deste aparelho. Baixe um backup para não perder nada e para levar os dados para outro celular/computador.</p>
+          <div class="btn-row">
+            <button class="btn btn-primary btn-sm" id="exportBtn">⬇️ Baixar backup</button>
+            <label class="btn btn-ghost btn-sm">⬆️ Restaurar backup <input type="file" id="importFile" accept=".json,application/json" class="hidden"></label>
+          </div>
+        </div>
+        <div class="card">
+          <h3>🔑 Trocar senha do painel</h3>
+          <div class="grid2">
+            <div class="field"><label for="pw1">Nova senha</label><input type="password" id="pw1" placeholder="Mínimo 4 caracteres"></div>
+            <div class="field"><label for="pw2">Repetir nova senha</label><input type="password" id="pw2" placeholder="Digite de novo"></div>
+          </div>
+          <button class="btn btn-primary btn-sm" id="changePwBtn">Trocar senha</button>
+        </div>
+        <div class="card danger">
+          <h3>⚠️ Zona de perigo</h3>
+          <p class="muted">Apaga TUDO (loja, cardápio e senha) e volta ao modelo inicial. Só use se tiver certeza — faça um backup antes.</p>
+          <button class="btn btn-danger btn-sm" id="resetBtn">🗑️ Apagar tudo e recomeçar</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODAL: CATEGORIA -->
+  <div class="overlay" id="catModal">
+    <div class="sheet small">
+      <div class="sheet-head"><h3 id="catModalTitle">Nova categoria</h3><button class="close-btn" data-close="catModal">✕</button></div>
+      <div class="sheet-body">
+        <div class="grid2">
+          <div class="field"><label for="c_name">Nome *</label><input id="c_name" placeholder="Ex: Espetinhos"></div>
+          <div class="field"><label for="c_emoji">Emoji</label><input id="c_emoji" maxlength="4" placeholder="🍢"></div>
+        </div>
+        <button class="btn btn-primary" id="saveCatBtn" style="width:100%">💾 Salvar categoria</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ITEM -->
+  <div class="overlay" id="itemModal">
+    <div class="sheet">
+      <div class="sheet-head"><h3 id="itemModalTitle">Novo item</h3><button class="close-btn" data-close="itemModal">✕</button></div>
+      <div class="sheet-body">
+        <div class="field"><label for="i_name">Nome do item *</label><input id="i_name" placeholder="Ex: Espetinho de Carne"></div>
+        <div class="grid2">
+          <div class="field"><label for="i_cat">Categoria *</label><select id="i_cat"></select></div>
+          <div class="field"><label for="i_price">Preço (R$) *</label><input id="i_price" inputmode="decimal" placeholder="12,90"></div>
+        </div>
+        <div class="field"><label for="i_desc">Descrição</label><textarea id="i_desc" rows="2" placeholder="Descreva o item para dar água na boca 😋"></textarea></div>
+        <div class="grid3">
+          <div class="field"><label for="i_badge">Etiqueta (opcional)</label><input id="i_badge" placeholder="Ex: Mais pedido"></div>
+          <div class="field"><label for="i_emoji">Emoji (se não tiver foto)</label><input id="i_emoji" maxlength="4" placeholder="🍢"></div>
+          <div class="field"><label for="i_available">Disponível?</label><select id="i_available"><option value="1">✅ Sim</option><option value="0">🚫 Esgotado</option></select></div>
+        </div>
+        <div class="field">
+          <label>Foto do item</label>
+          <div class="photo-row">
+            <div class="photo-preview-wrap"><img id="i_preview" class="photo-preview" alt="Foto do item"><span id="i_previewEmoji">🍢</span></div>
+            <div class="photo-actions">
+              <label class="btn btn-ghost btn-sm">📤 Enviar foto <input type="file" id="i_file" accept="image/*" class="hidden"></label>
+              <button class="btn btn-ghost btn-sm" id="i_galleryBtn" type="button">🖼️ Galeria</button>
+              <button class="btn btn-ghost btn-sm" id="i_noPhotoBtn" type="button">🚫 Sem foto (usar emoji)</button>
+            </div>
+          </div>
+          <div class="field" style="margin-top:10px"><label for="i_url">...ou cole o link de uma foto da internet</label><input id="i_url" placeholder="https://..."></div>
+          <div class="gallery hidden" id="i_gallery"></div>
+        </div>
+        <button class="btn btn-primary" id="saveItemBtn" style="width:100%">💾 Salvar item</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: GALERIA (capa) -->
+  <div class="overlay" id="galleryModal">
+    <div class="sheet small">
+      <div class="sheet-head"><h3>Escolher foto</h3><button class="close-btn" data-close="galleryModal">✕</button></div>
+      <div class="sheet-body"><div class="gallery" id="heroGallery"></div></div>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

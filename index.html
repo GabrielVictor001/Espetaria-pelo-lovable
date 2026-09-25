@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Minha Espetaria — Cardápio Digital</title>
+  <meta name="description" content="Cardápio digital: espetinhos na brasa, porções e bebidas. Monte seu pedido e envie pelo WhatsApp.">
+  <meta name="theme-color" content="#100e0b">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍢</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- TOPO -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="logo" id="logoEmoji">🍢</div>
+      <div class="brand">
+        <h1 id="storeName">Minha Espetaria</h1>
+        <span class="status open" id="storeStatus"><span class="dot"></span><span id="storeStatusText">Aberto agora</span></span>
+      </div>
+      <a class="icon-btn" href="admin.html" title="Área do dono">⚙️</a>
+    </div>
+  </header>
+
+  <!-- CAPA -->
+  <div class="wrap" style="padding:0">
+    <section class="hero">
+      <img class="bg" id="heroImg" src="assets/img/hero.jpg" alt="Espetinhos na brasa" onerror="this.style.display='none'">
+      <div class="hero-content">
+        <h2 id="heroName">Minha Espetaria</h2>
+        <p id="heroTagline"></p>
+        <div class="chips" id="infoChips"></div>
+      </div>
+    </section>
+  </div>
+
+  <main class="wrap">
+    <!-- BUSCA -->
+    <div class="searchbar">
+      <span class="ico">🔍</span>
+      <input type="search" id="searchInput" placeholder="Buscar no cardápio... (ex: carne, caipirinha)" autocomplete="off">
+    </div>
+
+    <!-- CATEGORIAS -->
+    <nav class="catnav" id="catNav"></nav>
+
+    <!-- CARDÁPIO -->
+    <div id="menu"></div>
+
+    <!-- RODAPÉ -->
+    <footer class="footer" id="storeFooter"></footer>
+  </main>
+
+  <!-- BARRA DA SACOLA -->
+  <div class="cartbar" id="cartBar">
+    <button class="cartbar-inner" id="cartBarBtn">
+      <span class="qty" id="cartBarQty">0</span>
+      <span class="label">Ver sacola</span>
+      <span class="total" id="cartBarTotal">R$ 0,00</span>
+    </button>
+  </div>
+
+  <!-- MODAL DO ITEM -->
+  <div class="overlay" id="itemModal">
+    <div class="sheet">
+      <div class="sheet-head">
+        <h3>Adicionar item</h3>
+        <button class="close-btn" data-close="itemModal">✕</button>
+      </div>
+      <div class="sheet-body" id="itemModalBody"></div>
+      <div class="modal-footer">
+        <div class="stepper">
+          <button id="itemMinus" aria-label="Diminuir">−</button>
+          <span id="itemQty">1</span>
+          <button id="itemPlus" aria-label="Aumentar">+</button>
+        </div>
+        <button class="btn btn-primary" id="itemAddBtn">Adicionar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DA SACOLA / FINALIZAR -->
+  <div class="overlay" id="cartModal">
+    <div class="sheet">
+      <div class="sheet-head">
+        <h3>🛒 Sua sacola</h3>
+        <button class="close-btn" data-close="cartModal">✕</button>
+      </div>
+      <div class="sheet-body" id="cartModalBody"></div>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

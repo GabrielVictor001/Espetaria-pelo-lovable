@@ -1,0 +1,165 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-brasa-50: #fff7ed;
+  --color-brasa-100: #ffedd5;
+  --color-brasa-200: #fed7aa;
+  --color-brasa-300: #fdba74;
+  --color-brasa-400: #fb923c;
+  --color-brasa-500: #f97316;
+  --color-brasa-600: #ea580c;
+  --color-brasa-700: #c2410c;
+  --color-brasa-900: #7c2d12;
+  --color-carvao-700: #1c2536;
+  --color-carvao-800: #131b2b;
+  --color-carvao-900: #0b1120;
+  --color-carvao-950: #070b14;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-carvao-900);
+  color: #e8edf7;
+  font-family: var(--font-sans);
+  overscroll-behavior-y: none;
+}
+
+::selection {
+  background: var(--color-brasa-500);
+  color: #111;
+}
+
+/* Barra de rolagem discreta */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #26314a;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #35425f;
+}
+
+@layer components {
+  /* base compartilhada de todos os botões */
+  .btn,
+  .btn-primary,
+  .btn-ghost,
+  .btn-danger,
+  .btn-success {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold
+           transition active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-b from-brasa-400 to-brasa-600 text-white shadow-md shadow-brasa-900/40 hover:from-brasa-300 hover:to-brasa-500;
+  }
+  .btn-ghost {
+    @apply border border-white/10 bg-white/5 text-slate-200 hover:bg-white/10;
+  }
+  .btn-danger {
+    @apply border border-red-500/30 bg-red-500/10 text-red-300 hover:bg-red-500/20;
+  }
+  .btn-success {
+    @apply bg-gradient-to-b from-emerald-400 to-emerald-600 text-white shadow-md shadow-emerald-900/30 hover:from-emerald-300;
+  }
+  .btn-icon {
+    @apply inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-white/10 bg-white/5
+           text-slate-200 transition hover:bg-white/10 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .card,
+  .kpi {
+    @apply rounded-2xl border border-white/5 bg-carvao-800/80 shadow-lg shadow-black/20;
+  }
+  .kpi {
+    @apply flex flex-col gap-1 p-4;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-white/10 bg-carvao-950/70 px-4 py-2.5 text-sm text-slate-100 outline-none
+           transition placeholder:text-slate-500 focus:border-brasa-500/70 focus:ring-2 focus:ring-brasa-500/20;
+  }
+
+  .chip {
+    @apply inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5
+           text-xs font-semibold text-slate-300 transition hover:bg-white/10 active:scale-95;
+  }
+  .chip-active {
+    @apply border-brasa-500/60 bg-brasa-500/20 text-brasa-200;
+  }
+
+  .label {
+    @apply mb-1.5 block text-xs font-semibold tracking-wide text-slate-400 uppercase;
+  }
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-in {
+  animation: fadeIn 0.16s ease-out;
+}
+
+@keyframes pulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(249, 115, 22, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+  }
+}
+.pulse-ring {
+  animation: pulseRing 1.4s infinite;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-area {
+    display: block !important;
+    color: #000;
+    font-family: ui-monospace, 'Courier New', monospace;
+    white-space: pre-wrap;
+    padding: 16px;
+  }
+}
